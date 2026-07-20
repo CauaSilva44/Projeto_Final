@@ -8,7 +8,7 @@ async function perfil(req, res, next) {
   } catch (error) {
 
     return next(error);
-  };
+  }
 };
 
 

@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import AuthController from "../controllers/auth.controller.js";
 
-const router = Router();
+const router = Router()
 
 router.post("/cadastrar", AuthController.cadastrar);
 router.post("/login", AuthController.login);

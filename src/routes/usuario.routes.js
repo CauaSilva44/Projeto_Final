@@ -3,7 +3,8 @@ import { Router } from "express";
 import UsuarioController from "../controllers/usuario.controller.js";
 
 import autenticar from "../middlewares/autenticacao.middlewares.js";
-const router = Router();
+
+const router = Router()
 
 
 router.use(autenticar);
