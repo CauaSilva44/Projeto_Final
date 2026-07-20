@@ -65,6 +65,44 @@ async function buscarPerfil(id) {
   return montarUsuarioSeguro(usuario);
 }
 
+async function atualizarPerfil(id, dadosAtualizados) {
+  const usuarioExistente = await usuarioRepository.buscarPorId(id);
+
+  if (!usuarioExistente) {
+    throw criarErro("Usuário não encontrado.", 404);
+  }
+
+  const dadosParaAtualizar = { ...dadosAtualizados };
+
+  if (dadosParaAtualizar.nome) {
+    dadosParaAtualizar.nome = dadosParaAtualizar.nome.trim();
+  }
+
+  if (dadosParaAtualizar.email) {
+    const emailNormalizado = dadosParaAtualizar.email.trim().toLowerCase();
+
+    const usuarioComEmail = await usuarioRepository.buscarPorEmail(emailNormalizado);
+
+    if (usuarioComEmail && usuarioComEmail.id !== id) {
+      throw criarErro("Email já cadastrado.", 409);
+    }
+
+    dadosParaAtualizar.email = emailNormalizado;
+  }
+
+  if (dadosParaAtualizar.senha) {
+    validarSenha(dadosParaAtualizar.senha);
+
+    const saltRounds = Number(process.env.BCRYPT_SALT_ROUNDS || SALT_ROUNDS);
+    dadosParaAtualizar.senhaHash = await bcrypt.hash(dadosParaAtualizar.senha, saltRounds);
+    delete dadosParaAtualizar.senha;
+  }
+
+  const usuarioAtualizado = await usuarioRepository.atualizarPorId(id, dadosParaAtualizar);
+
+  return montarUsuarioSeguro(usuarioAtualizado);
+}
+
 function validarSenha(senha) {
   const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   if (!regex.test(senha)) {
@@ -91,10 +129,24 @@ function gerarToken(usuario) {
   return token;
 }
 
+async function removerMinhaConta(id) {
+  const usuarioExistente = await usuarioRepository.buscarPorId(id);
+
+  if (!usuarioExistente) {
+    throw criarErro("Usuário não encontrado.", 404);
+  }
+
+  await usuarioRepository.deletarPorId(id);
+
+  return { message: "Conta removida com sucesso." };
+}
+
 const UsuarioService = {
   cadastrar,
   login,
   buscarPerfil,
+  atualizarPerfil,
+  removerMinhaConta,
   gerarToken,
 };
 

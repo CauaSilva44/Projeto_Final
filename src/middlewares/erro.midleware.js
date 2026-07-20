@@ -26,5 +26,5 @@ function erroMiddleware(error, req, res, next) {
   return res.status(status).json({ message });
   };
   
-  export default erroMiddleware;
+  export default erroMiddleware
   
