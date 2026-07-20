@@ -7,7 +7,7 @@ const MONGO_URI = process.env.MONGO_URI;
 
 async function conectarDB() {
   if (!MONGO_URI) {
-    throw new Error("MONGO_URI não configurado no .env");
+    throw new Error("MONGO_URI não configurado nas variáveis de ambiente do Render");
   }
 
   try {
