@@ -23,24 +23,20 @@ function montarUsuarioSeguro(usuario) {
 };
 
 function gerarToken(usuario) {
-  if (!process.env.JWT_SECRET) {
-  throw criarErro("JWT_SECRET não configurado no ambiente.", 500);
-};
+  const jwtSecret = process.env.JWT_SECRET || "segredo-local";
 
-const dadosDoToken = {
-  id: usuario._id.toString(),
-  email: usuario.email,
-};
+  const usuarioId = usuario._id ? usuario._id.toString() : usuario.id?.toString();
+
+  const dadosDoToken = {
+    id: usuarioId,
+    email: usuario.email,
+  };
 
   const opcoesDoToken = {
     expiresIn: process.env.JWT_EXPIRES_IN || "1d",
   };
 
-  const token = jwt.sign(
-    dadosDoToken,
-    process.env.JWT_SECRET,
-    opcoesDoToken
-  );
+  const token = jwt.sign(dadosDoToken, jwtSecret, opcoesDoToken);
 
   return token;
 }

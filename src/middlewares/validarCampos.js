@@ -1,4 +1,4 @@
-import criarErro from "../src/utils/CriarErro.js";
+import criarErro from "../utils/criarErro.js";
 
 function validarCadastro(req, res, next) {
 

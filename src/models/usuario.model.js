@@ -25,12 +25,12 @@ const UsuarioSchema = new mongoose.Schema(
       required: [true, "A senhaHash é obrigatória."],
       select: false,
     },
-    
-      tipoPerm: {
-        type: String,
-        enum: ["usuario", "admin"],
-        default: "usuario"
-      }
+
+    tipoPerm: {
+      type: String,
+      enum: ["usuario", "admin"],
+      default: "usuario",
+    },
   },
   {
 

@@ -55,6 +55,16 @@ async function login({ email, senha }) {
   return montarUsuarioSeguro(usuario);
 };
 
+async function buscarPerfil(id) {
+  const usuario = await usuarioRepository.buscarPorId(id);
+
+  if (!usuario) {
+    throw criarErro("Usuário não encontrado.", 404);
+  }
+
+  return montarUsuarioSeguro(usuario);
+}
+
 function validarSenha(senha) {
   const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   if (!regex.test(senha)) {
@@ -81,8 +91,11 @@ function gerarToken(usuario) {
   return token;
 }
 
-export default {
+const UsuarioService = {
   cadastrar,
   login,
+  buscarPerfil,
   gerarToken,
 };
+
+export default UsuarioService;
