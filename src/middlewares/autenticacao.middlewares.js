@@ -23,6 +23,7 @@ function autenticar(req, res, next) {
     req.usuario = {
       id: dadosDoToken.id,
       email: dadosDoToken.email,
+      tipoPerm: dadosDoToken.tipoPerm,
     };
 
     return next();

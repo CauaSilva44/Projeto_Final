@@ -3,6 +3,7 @@ import express from "express";
 import usuarioRoutes from "./routes/usuario.routes.js";
 
 import authRoutes from "./routes/auth.routes.js";
+import livrosRoutes from "./routes/livros.routes.js";
 
 import criarErro from "./utils/criarErro.js";
 
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 app.use("/auth", authRoutes);
 
 app.use("/usuarios", usuarioRoutes);
+app.use("/livros", livrosRoutes);
 
 app.use((req, res, next) => {
   return next(criarErro("Rota não encontrada.", 404));

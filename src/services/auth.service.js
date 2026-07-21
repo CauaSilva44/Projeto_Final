@@ -30,6 +30,7 @@ function gerarToken(usuario) {
   const dadosDoToken = {
     id: usuarioId,
     email: usuario.email,
+    tipoPerm: usuario.tipoPerm || "usuario",
   };
 
   const opcoesDoToken = {
