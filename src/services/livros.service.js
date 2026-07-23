@@ -43,7 +43,7 @@ async function listarLivros(query = {}) {
   const sort = query.ordenar || "titulo";
 
   const ordem = query.ordem === "desc" ? -1 : 1;
-
+ 
   const [livros, total] = await Promise.all([
     LivroRepository.listarComFiltros(filtro, {
       sort: { [sort]: ordem },

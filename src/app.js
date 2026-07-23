@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 import usuarioRoutes from "./routes/usuario.routes.js";
 
@@ -11,6 +12,7 @@ import erroMiddleware from "./middlewares/erro.midleware.js";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 
