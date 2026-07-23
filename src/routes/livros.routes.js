@@ -3,6 +3,7 @@ import { Router } from "express";
 import LivroController from "../controllers/livros.controllers.js";
 import autenticar from "../middlewares/autenticacao.middlewares.js";
 import criarErro from "../utils/criarErro.js";
+import { CATEGORIAS } from "../models/livros.models.js";
 
 const router = Router();
 
@@ -13,6 +14,10 @@ function somenteAdmin(req, res, next) {
 
   return next();
 }
+
+router.get("/categorias", (req, res) => {
+  return res.status(200).json({ categorias: CATEGORIAS });
+});
 
 router.get("/", LivroController.listarLivros);
 router.get("/:id", LivroController.buscarLivroPorId);

@@ -1,5 +1,18 @@
 import mongoose from "mongoose";
 
+export const CATEGORIAS = [
+  "Literatura",
+  "Ficção",
+  "Não-ficção",
+  "Infantil",
+  "Juvenil",
+  "Ciência",
+  "História",
+  "Tecnologia",
+  "Arte",
+  "Outros",
+];
+
 const LivroSchema = new mongoose.Schema(
   {
     titulo: {
@@ -19,6 +32,10 @@ const LivroSchema = new mongoose.Schema(
       type: String,
       required: [true, "A categoria é obrigatória."],
       trim: true,
+      enum: {
+        values: CATEGORIAS,
+        message: "Categoria inválida.",
+      },
     },
 
     descricao: {

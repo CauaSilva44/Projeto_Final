@@ -16,7 +16,6 @@ async function login(req, res, next) {
 
     const resultado = await AuthService.login(req.body);
 
-
     return res.status(200).json(resultado);
   } catch (error) {
 

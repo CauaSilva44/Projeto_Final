@@ -63,6 +63,25 @@ npm run seed-admin
 - `POST /auth/cadastrar`
 - `POST /auth/login`
 
+## Categorias disponíveis
+
+As categorias possíveis ao criar um livro são fixas e podem ser obtidas pela rota pública:
+
+- `GET /livros/categorias`
+
+Lista de categorias pré-registradas:
+
+- Literatura
+- Ficção
+- Não-ficção
+- Infantil
+- Juvenil
+- Ciência
+- História
+- Tecnologia
+- Arte
+- Outros
+
 ### Exemplo de login
 
 ```bash
